@@ -1,0 +1,19 @@
+pipeline:
+  install:
+    image: colelawr/node-ssh:5
+    commands:
+     - npm install > npm-install.log
+  test:
+    image: node:5
+    commands:
+      - npm version
+  debug:
+    image: dryclean/drone-debug
+    commands:
+      - echo -e $PLUGIN_GIT_ID
+      - echo -e $PLUGIN_GIT_PRIVATE
+  install-cat:
+    image: busybox
+    commands:
+      - cat npm-install.log
+
